@@ -1,0 +1,22 @@
+{
+  "name": "employee-management",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "mongoose": "^8.2.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.0"
+  },
+  "author": "Your Name",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: No test script specified.\"",
+    "prebuild": "echo \"Error: No prebuild script specified.\""
+  }
+}
