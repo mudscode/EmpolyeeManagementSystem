@@ -25,7 +25,7 @@ class EmployeeManagementSystem {
       const newEmployee = new Employee({ name, age, email, position, salary });
       const savedEmployee = await newEmployee.save();
 
-      res.status(200).json(savedEmployee);
+      res.status(201).json(savedEmployee);
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
