@@ -6,7 +6,7 @@ const uri = process.env.MONGODB_URI;
 
 const connectDb = async () => {
   try {
-    mongoose.connect(uri);
+    await mongoose.connect(uri);
     console.log("Connected to mongodb");
   } catch (error) {
     console.log("An error occured while connecting to mongodb");
