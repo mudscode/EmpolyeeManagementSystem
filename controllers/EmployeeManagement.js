@@ -10,6 +10,7 @@ class EmployeeManagementSystem {
       // Extracts the details from req.body
       const { name, age, email, position, salary } = req.body;
 
+      // Checking if an employeee exists by email to make the feature of everyone haing unique email
       const employeeExists = await Employee.findOne({ email });
 
       if (employeeExists) {
@@ -73,6 +74,7 @@ class EmployeeManagementSystem {
         return res.status(404).json("Employee not found!");
       }
 
+      // Update the fields
       const updatedEmployee = await Employee.findByIdAndUpdate(
         _id,
         { name, age, email, position, salary },
