@@ -2,10 +2,12 @@ const Employee = require("../models/Employee");
 const mongoose = require("mongoose");
 
 class EmployeeManagementSystem {
+
   // Adds an employee to the Employee model
-  async addEmployee(req, res) {
+  async addAnEmployee(req, res) {
     try {
-      // Extracts employee details from the req.body
+
+      // Extracts the details from req.body
       const { name, age, email, position, salary } = req.body;
 
       const employeeExists = await Employee.findOne({ email });
@@ -16,9 +18,10 @@ class EmployeeManagementSystem {
           .json("An employee with the same email already exists!");
       }
 
+      // Storing the required fields so that it can iterated over
       const requiredFields = ["name", "age", "email", "position", "salary"];
 
-      // Checking whether all the required fields are passed down in the req.body or not
+      // Checking whether all the required fields are passed down in the req.body or not and sending an error if not all are passed
       for (const field of requiredFields) {
         if (!req.body[field]) {
           return res.status(400).json(`${field} is required!`);
@@ -30,14 +33,16 @@ class EmployeeManagementSystem {
 
       res.status(201).json(savedEmployee);
     } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
+      res.status(500).json("An error occured internally!");
+      console.log(err);
+      }
   }
 
   // Gets an employee from the Employee model
-  async getEmployee(req, res) {
+  async getAnEmployee(req, res) {
     try {
-      // Returns an error if the employee id is invalid
+
+      // Returns an error if the employee id is invalid, when you send an id that's not the standard 12 digigts hexadecimal format which the mongoose accept, it gives an error as not objectId ... And we use this mongoose method to check that
       if (!mongoose.isValidObjectId(req.params.id)) {
         return res.status(400).json({ error: "Employee not found!" });
       }
@@ -52,7 +57,8 @@ class EmployeeManagementSystem {
 
       // Returns an error during an exception or internal server error
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json("An error occured internally!");
+      console.log(err);
     }
   }
 
@@ -75,13 +81,15 @@ class EmployeeManagementSystem {
 
       res.status(200).json(updatedEmployee);
     } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
+      res.status(500).json("An error occured internally!");
+      console.log(err);
+     }
   }
 
   // Deletes an employee
-  async deleteEmployee(req, res) {
+  async deleteAnEmployee(req, res) {
     try {
+
       // Returns an error if the id is invalid
       if (!mongoose.isValidObjectId(req.params.id)) {
         return res.status(400).json({ error: "Employee not found!" });
@@ -97,8 +105,8 @@ class EmployeeManagementSystem {
 
       res.status(200).json(`${deletedEmployee.name} deleted successfully.`);
     } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
+      res.status(500).json("An error occured internally!");
+      console.log(err);    }
   }
 }
 
