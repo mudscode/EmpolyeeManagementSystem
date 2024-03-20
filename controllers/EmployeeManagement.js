@@ -7,7 +7,7 @@ class EmployeeManagementSystem {
       // Extracts the details from req.body
       const { name, age, email, position, salary } = req.body;
 
-      // Checking if an employeee exists by email to make the feature of everyone haing unique email
+      // Checking if the same already exists ensuring everyone have unique emails
       const employeeExists = await Employee.findOne({ email });
 
       if (employeeExists) {
@@ -15,8 +15,6 @@ class EmployeeManagementSystem {
           .status(400)
           .json("An employee with the same email already exists!");
       }
-
-      const requiredFields = ["name", "age", "email", "position", "salary"];
 
       // Checking whether all the required fields are passed down in the req.body
       for (const field of ["name", "age", "email", "position", "salary"]) {
