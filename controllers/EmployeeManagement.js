@@ -2,8 +2,10 @@ const Employee = require("../models/Employee");
 const mongoose = require("mongoose");
 
 class EmployeeManagementSystem {
+
   async addAnEmployee(req, res) {
     try {
+
       // Extracts the details from req.body
       const { name, age, email, position, salary } = req.body;
 
@@ -30,11 +32,12 @@ class EmployeeManagementSystem {
     } catch (err) {
       res.status(500).json("An error occured internally!");
       console.log(err);
-    }
+      }
   }
 
   async getAnEmployee(req, res) {
     try {
+
       /* Returns an error if the employee id is invalid, when you send an id that's not the standard 12 digits hexadecimal format which the mongoose accept, it gives an error as not objectId ... And we use this mongoose method to check that */
       if (!mongoose.isValidObjectId(req.params.id)) {
         return res.status(400).json({ error: "Employee not found!" });
@@ -48,6 +51,7 @@ class EmployeeManagementSystem {
 
       return res.status(200).json(employee);
 
+      // Returns an error during an exception or internal server error
     } catch (err) {
       res.status(500).json("An error occured internally!");
       console.log(err);
@@ -64,7 +68,7 @@ class EmployeeManagementSystem {
         return res.status(404).json("Employee not found!");
       }
 
-      // Update the fields that are to be updated
+      // Update the fields
       const updatedEmployee = await Employee.findByIdAndUpdate(
         _id,
         { name, age, email, position, salary },
@@ -75,11 +79,13 @@ class EmployeeManagementSystem {
     } catch (err) {
       res.status(500).json("An error occured internally!");
       console.log(err);
-    }
+     }
   }
 
   async deleteAnEmployee(req, res) {
     try {
+
+      // Returns an error if the id is invalid
       if (!mongoose.isValidObjectId(req.params.id)) {
         return res.status(400).json({ error: "Employee not found!" });
       }
@@ -95,8 +101,7 @@ class EmployeeManagementSystem {
       res.status(200).json(`${deletedEmployee.name} deleted successfully.`);
     } catch (err) {
       res.status(500).json("An error occured internally!");
-      console.log(err);
-    }
+      console.log(err);    }
   }
 }
 
